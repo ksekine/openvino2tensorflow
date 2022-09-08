@@ -7373,6 +7373,7 @@ def convert(
                     else:
                         data = np.random.random_sample([i for i in shape]).astype(np.float32) * 255.0
                     tmp_image = eval(string_formulas_for_normalization) # Default: (data - [127.5,127.5,127.5]) / [127.5,127.5,127.5]
+                    tmp_image = tmp_image.astype(np.float32)
                     images.append(tmp_image)
                 yield images
 

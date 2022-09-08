@@ -578,6 +578,7 @@ def convert(
                         for key in tf_edges.keys():
                             if to_layer in key and from_layer in tf_edges[key]:
                                 flg = 'found'
+                                tf_edges.setdefault(to_layer, []).append(from_layer)
                                 break
                         if flg == 'not_found':
                             tf_edges.setdefault(to_layer, []).append(from_layer)

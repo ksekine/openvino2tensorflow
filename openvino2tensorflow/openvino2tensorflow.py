@@ -7346,7 +7346,6 @@ def convert(
         else:
             pass
         input_shapes = [model_input.shape for model_input in model.inputs]
-        print(input_shapes)
 
     def representative_dataset_gen():
         if calib_ds_type == 'tfds':
@@ -7366,11 +7365,11 @@ def convert(
                 for shape in input_shapes:
                     if len(shape) == 4 and shape[3] == 3:
                         data = tf.image.resize(image, (shape[1], shape[2]))
-                        data = data[np.newaxis,:,:,:]
+                        data = np.concatenate([data[np.newaxis,:,:,:] for _ in range(shape[0])], 0)
                     elif len(shape) == 4 and shape[3] == 1:
                         data = tf.image.resize(image, (shape[1], shape[2]))
                         data = 0.299 * data[:, :, 0] + 0.587 * data[:, :, 1] + 0.114 * data[:, :, 2]
-                        data = data[np.newaxis,:,:,np.newaxis]
+                        data = np.concatennate([data[np.newaxis,:,:,np.newaxis] for _ in range(shape[0])], 0)
                     else:
                         data = np.random.random_sample([i for i in shape]).astype(np.float32) * 255.0
                     tmp_image = eval(string_formulas_for_normalization) # Default: (data - [127.5,127.5,127.5]) / [127.5,127.5,127.5]

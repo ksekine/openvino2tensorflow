@@ -7346,6 +7346,7 @@ def convert(
         else:
             pass
         input_shapes = [model_input.shape for model_input in model.inputs]
+        print(input_shapes)
 
     def representative_dataset_gen():
         if calib_ds_type == 'tfds':

@@ -7856,6 +7856,8 @@ def main():
         pass
     elif calib_ds_type == 'numpy':
         pass
+    elif calib_ds_type == 'original':
+        pass
     else:
         print('Only \'tfds\' or \'numpy\' can be specified for calib_ds_type.')
         sys.exit(-1)

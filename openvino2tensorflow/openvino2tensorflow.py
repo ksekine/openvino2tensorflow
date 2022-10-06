@@ -7343,6 +7343,8 @@ def convert(
                 print(f'{Color.RED}ERROR:{Color.RESET}', e.stderr.decode('utf-8'))
                 import traceback
                 traceback.print_exc()
+        elif calib_ds_type == 'original':
+            raw_test_data = np.load(load_dest_file_path_for_the_calib_npy)
         else:
             pass
         input_shapes = [model_input.shape for model_input in model.inputs]
@@ -7358,7 +7360,7 @@ def convert(
                     tmp_image = tmp_image[np.newaxis,:,:,:]
                     images.append(tmp_image)
                 yield images
-        elif calib_ds_type == 'numpy':
+        elif calib_ds_type == 'numpy' or calib_ds_type == 'original':
             for idx in range(raw_test_data.shape[0]):
                 image = raw_test_data[idx]
                 images = []
